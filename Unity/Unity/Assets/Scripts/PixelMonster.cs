@@ -24,11 +24,11 @@ public class Pixel : MonoBehaviour {
 
         if (Physics.Raycast(mytransform.transform.position, mytransform.forward, out hit, 2, LayerMask.NameToLayer("Object"))) {
             string enemyType = hit.transform.GetComponent<Pixel>().Type;
-            DestoryLoser(CheckType(Type, enemyType));
+            DestoryLoser(CheckLoser(Type, enemyType));
         }
     }
 
-    public int CheckType (string choice1, string choice2) {
+    public int CheckLoser (string choice1, string choice2) {
         if (choice1 == choice2) {
             return 0;
         } else if (choice1 == "rock") {
