@@ -24,41 +24,41 @@ public class Pixel : MonoBehaviour {
 
         if (Physics.Raycast(mytransform.transform.position, mytransform.forward, out hit, 2, LayerMask.NameToLayer("Object"))) {
             string enemyType = hit.transform.GetComponent<Pixel>().Type;
-            CheckType(Type, enemyType);
+            DestoryLoser(CheckType(Type, enemyType));
         }
     }
 
-    public void CheckType (string choice1, string choice2) {
+    public int CheckType (string choice1, string choice2) {
         if (choice1 == choice2) {
-            win(0);
+            return 0;
         } else if (choice1 == "rock") {
-            if (choice2 == "scissors") {
-                win(1);
+            if (choice2 == "water") {
+                return 1;
             } else {
-                win(2);
+                return 2;
             }
-        } else if (choice1 == "paper") {
+        } else if (choice1 == "fire") {
             if (choice2 == "rock") {
-                win(1);
+                return 1;
             } else {
-                win(2);
+                return 2;
             }
-        } else if (choice1 == "scissors") {
-            if (choice2 == "paper") {
-                win(1);
+        } else if (choice1 == "water") {
+            if (choice2 == "fire") {
+                return 1;
             } else {
-                win(2);
+                return 2;
             }
-        }
+        } else return 69;
     }
 
-    public void win (int team) {
-        if (team == 0) {
+    public void DestoryLoser (int loser) {
+        if (loser == 0) {
             Destroy(gameObject, 0.1f);
             Destroy(hit.transform.gameObject, 0.1f);
-        } else if (team == 1) {
+        } else if (loser == 1) {
             Destroy(hit.transform.gameObject, 0.1f);
-        } else if (team == 1) {
+        } else if (loser == 1) {
             Destroy(gameObject, 0.1f);
         }
     }
