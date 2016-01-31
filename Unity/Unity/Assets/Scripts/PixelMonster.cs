@@ -15,12 +15,11 @@ public class PixelMonster : MonoBehaviour {
     void Awake () {
         animation = GetComponent<Animation>();
         mytransform = gameObject.transform;
-        //Debug.Log(transform.name);
     }
 
     void Start() {
         team = (mytransform.position.x > 0)? 2: 1;
-        mytransform.localScale = (mytransform.position.x > 0) ?  new Vector3(-1,1,1) : new Vector3(1, 1, 1);
+        mytransform.localScale = (mytransform.position.x > 0) ?  new Vector3(-2,2,2) : new Vector3(2, 2, 2);
     }
 
     void Update () {
@@ -52,7 +51,7 @@ public class PixelMonster : MonoBehaviour {
     }
 
     IEnumerator BattleCheck (string choice1, string choice2) {
-        //Debug.Log("BattleCheck");
+        Debug.Log("BattleCheck");
         yield return new WaitForSeconds(1f);
 
         if (choice1 == choice2) {

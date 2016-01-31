@@ -34,11 +34,4 @@ public class PixelWarManager : MonoBehaviour {
             Instantiate(Pixels[type], spawnpointsTeam2[lane].position, Quaternion.identity);
         }
     }
-
-    // test
-    void Update() {
-        if(Input.anyKeyDown) {
-            Spawn(Random.Range(0, 2), Random.Range(0, 5), Random.Range(0, 3));
-        }
-    }
 }

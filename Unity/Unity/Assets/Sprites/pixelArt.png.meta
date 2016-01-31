@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 86606f3b7431a504483dfc3edfb6d2b1
-timeCreated: 1454236708
+timeCreated: 1454234865
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -32,37 +32,6 @@ TextureImporter:
     21300050: fire_7
     21300052: fire_8
     21300054: pixelArt_0
-    21300056: pixelArt_1
-    21300058: pixelArt_2
-    21300060: pixelArt_3
-    21300062: pixelArt_4
-    21300064: pixelArt_5
-    21300066: pixelArt_6
-    21300068: pixelArt_7
-    21300070: pixelArt_8
-    21300072: pixelArt_9
-    21300074: pixelArt_10
-    21300076: pixelArt_11
-    21300078: pixelArt_12
-    21300080: pixelArt_13
-    21300082: pixelArt_14
-    21300084: pixelArt_15
-    21300086: pixelArt_16
-    21300088: pixelArt_17
-    21300090: pixelArt_18
-    21300092: pixelArt_19
-    21300094: pixelArt_20
-    21300096: pixelArt_21
-    21300098: pixelArt_22
-    21300100: pixelArt_23
-    21300102: pixelArt_24
-    21300104: pixelArt_25
-    21300106: pixelArt_26
-    21300108: pixelArt_27
-    21300110: pixelArt_28
-    21300112: pixelArt_29
-    21300114: pixelArt_30
-    21300116: pixelArt_31
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -109,7 +78,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: pixelArt_0
+    - name: rock_0
       rect:
         serializedVersion: 2
         x: 2
@@ -120,18 +89,18 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_1
+    - name: rock_1
       rect:
         serializedVersion: 2
         x: 18
-        y: 80
+        y: 81
         width: 12
-        height: 16
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_2
+    - name: rock_2
       rect:
         serializedVersion: 2
         x: 34
@@ -142,18 +111,18 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_3
+    - name: rock_3
       rect:
         serializedVersion: 2
         x: 50
-        y: 80
+        y: 81
         width: 12
-        height: 16
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_4
+    - name: rock_4
       rect:
         serializedVersion: 2
         x: 66
@@ -164,7 +133,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_5
+    - name: rock_5
       rect:
         serializedVersion: 2
         x: 82
@@ -175,7 +144,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_6
+    - name: rock_6
       rect:
         serializedVersion: 2
         x: 3
@@ -186,7 +155,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_7
+    - name: rock_7
       rect:
         serializedVersion: 2
         x: 18
@@ -197,7 +166,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_8
+    - name: rock_8
       rect:
         serializedVersion: 2
         x: 34
@@ -208,7 +177,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_9
+    - name: water_0
       rect:
         serializedVersion: 2
         x: 48
@@ -219,7 +188,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_10
+    - name: water_1
       rect:
         serializedVersion: 2
         x: 64
@@ -230,7 +199,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_11
+    - name: water_2
       rect:
         serializedVersion: 2
         x: 80
@@ -241,7 +210,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_12
+    - name: water_3
       rect:
         serializedVersion: 2
         x: 0
@@ -252,7 +221,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_13
+    - name: water_4
       rect:
         serializedVersion: 2
         x: 16
@@ -263,7 +232,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_14
+    - name: water_5
       rect:
         serializedVersion: 2
         x: 32
@@ -274,7 +243,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_15
+    - name: water_6
       rect:
         serializedVersion: 2
         x: 48
@@ -285,18 +254,18 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_16
+    - name: water_7
       rect:
         serializedVersion: 2
         x: 64
         y: 48
         width: 16
-        height: 16
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_17
+    - name: water_8
       rect:
         serializedVersion: 2
         x: 80
@@ -307,7 +276,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_18
+    - name: fire_0
       rect:
         serializedVersion: 2
         x: 0
@@ -318,7 +287,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_19
+    - name: fire_1
       rect:
         serializedVersion: 2
         x: 16
@@ -329,7 +298,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_20
+    - name: fire_2
       rect:
         serializedVersion: 2
         x: 32
@@ -340,7 +309,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_21
+    - name: fire_3
       rect:
         serializedVersion: 2
         x: 48
@@ -351,7 +320,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_22
+    - name: fire_4
       rect:
         serializedVersion: 2
         x: 64
@@ -362,7 +331,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_23
+    - name: fire_5
       rect:
         serializedVersion: 2
         x: 80
@@ -373,7 +342,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_24
+    - name: fire_6
       rect:
         serializedVersion: 2
         x: 0
@@ -384,18 +353,18 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_25
+    - name: fire_7
       rect:
         serializedVersion: 2
         x: 16
         y: 16
-        width: 16
+        width: 15
         height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_26
+    - name: fire_8
       rect:
         serializedVersion: 2
         x: 32
@@ -406,56 +375,12 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: pixelArt_27
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 16
-        width: 13
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: pixelArt_28
-      rect:
-        serializedVersion: 2
-        x: 65
-        y: 16
-        width: 13
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: pixelArt_29
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 16
-        width: 13
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: pixelArt_30
+    - name: pixelArt_0
       rect:
         serializedVersion: 2
         x: 2
-        y: 3
+        y: 2
         width: 14
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: pixelArt_31
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 3
-        width: 15
         height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
