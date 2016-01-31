@@ -11,6 +11,7 @@ public class PixelMonster : MonoBehaviour {
     private Transform mytransform;
     private bool battle = false;
     private GameObject enemy;
+    public bool paused;
 
     void Awake () {
         animation = GetComponent<Animation>();
@@ -22,14 +23,18 @@ public class PixelMonster : MonoBehaviour {
         mytransform.localScale = (mytransform.position.x > 0) ?  new Vector3(-2,2,2) : new Vector3(2, 2, 2);
     }
 
-    void Update () {
-        if (battle)
-            return;
+    void Update()
+    {
+        if (!paused)
+        {
+            if (battle)
+                return;
 
-        if (team == 1)
-            mytransform.position += speedVector * Time.deltaTime;
-        else if (team == 2)
-            mytransform.position -= speedVector * Time.deltaTime;
+            if (team == 1)
+                mytransform.position += speedVector * Time.deltaTime;
+            else if (team == 2)
+                mytransform.position -= speedVector * Time.deltaTime;
+        }
     }
 
     void OnTriggerEnter2D (Collider2D other) {

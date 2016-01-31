@@ -260,6 +260,8 @@ public class Gem : MonoBehaviour
     {
         deathScreen.SetActive(true);
         paused = true;
+        FindObjectsOfType<Gem>().ToList().ForEach(x => x.paused = true);
+        FindObjectsOfType<PixelMonster>().ToList().ForEach(x => x.paused = true);
     }
 
     public void SpawnCockblocker()
