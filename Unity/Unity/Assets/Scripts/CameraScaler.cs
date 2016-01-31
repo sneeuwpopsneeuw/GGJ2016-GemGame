@@ -8,8 +8,6 @@ public class CameraScaler : MonoBehaviour
     // Use this for initialization
     void Update()
     {
-
         Camera.main.orthographicSize = halfWidth / Screen.width * Screen.height;
-
     }
 }
