@@ -9,6 +9,7 @@ using Random = System.Random;
 public class Gem : MonoBehaviour
 {
     public float angle = 45;
+    public float speed = 2;
     public float spawnTime;
     public List<SpawnGem> gems = new List<SpawnGem>();
     public GameObject cockBlockerPrefab;
@@ -38,7 +39,7 @@ public class Gem : MonoBehaviour
     void Start()
     {
         DOTween.Init();
-        rand = new Random();
+        rand = new Random(System.DateTime.Now.Millisecond * UnityEngine.Random.Range(0,100));
         smallGemParent.transform.position = transform.position;
         spawnTimer = spawnTime;
         arrowInstance = Instantiate(arrowPrefab);
@@ -82,7 +83,7 @@ public class Gem : MonoBehaviour
             for (int i = 0; i < spawnedGems.Count; i++)
             {
                 SpawnGem sg = spawnedGems[i];
-                //CheckCombo(sg);
+                CheckCombo(sg);
                 sg.col.enabled = false;
                 int count = Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.up, hit, .4f);
                 if (count > 1)
@@ -90,10 +91,14 @@ public class Gem : MonoBehaviour
                     sg.moving = false;
                     bool succes = false;
                     RaycastHit2D[] hits = new RaycastHit2D[20];
-                    count = Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.up, hits, (blockHeight * (maxRows-1)));
+                    count = Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.up, hits, (blockHeight * (maxRows)));
                     List<GameObject> hitObj = new List<GameObject>();
                     for (int x = 0; x < count; x++)
                     {
+                        if(!hitObj.Contains(hits[x].transform.gameObject))
+                        {
+                            hitObj.Add(hits[x].transform.gameObject);
+                        }
                         if (hits[x].collider.gameObject == gameObject)
                         {
                             succes = true;
@@ -106,11 +111,10 @@ public class Gem : MonoBehaviour
                     }
                     else
                     {
-                        if (count > 5)
+                        if (hitObj.Count> 5)
                         {
-                            Debug.Break();
                             spawnedGems.Remove(sg);
-                            Destroy(sg.prefab);
+                            Destroy(sg.prefab.transform.parent.gameObject);
                             TakeDamage(25);
                             continue;
                         }
@@ -118,7 +122,7 @@ public class Gem : MonoBehaviour
                 }
                 else
                 {
-                    sg.prefab.transform.position += -sg.prefab.transform.up * Time.deltaTime;
+                    sg.prefab.transform.position += -sg.prefab.transform.up * Time.deltaTime * speed;
                     sg.moving = true;
                 }
                 sg.col.enabled = true;
@@ -201,7 +205,7 @@ public class Gem : MonoBehaviour
                 for (int i = 0; i < gems.Count; i++)
                 {
                     spawnedGems.Remove(gems[i]);
-                    Destroy(gems[i].prefab);
+                    Destroy(gems[i].prefab.transform.parent.gameObject);
                 }
                 SpawnMinion(gems[0].type);
             }

@@ -19,7 +19,7 @@ public class PixelMonster : MonoBehaviour {
 
     void Start() {
         team = (mytransform.position.x > 0)? 2: 1;
-        mytransform.localScale = (mytransform.position.x > 0) ?  new Vector3(-1,1,1) : new Vector3(1, 1, 1);
+        mytransform.localScale = (mytransform.position.x > 0) ?  new Vector3(-2,2,2) : new Vector3(2, 2, 2);
     }
 
     void Update () {
