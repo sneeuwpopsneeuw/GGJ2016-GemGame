@@ -1,64 +1,92 @@
 ﻿using UnityEngine;
+using System.Collections;
 
-public class Pixel : MonoBehaviour {
+public class PixelMonster : MonoBehaviour {
 
-    public string Type; // "rock" "paper" "scissors" "cockblocker"
-    public int team;   // 1 of 2
-    private Vector3 speedVector = Vector3.zero;
+    [HideInInspector] public int team = 1;   // 1 of 2
+    public string monsterType; // "rock" "paper" "scissors" "cockblocker"
+    private Vector3 speedVector = new Vector3(1,0,0);
 
-    //private Animation animation;
+    private Animation animation;
     private Transform mytransform;
-    private RaycastHit hit;
+    private bool battle = false;
+    private GameObject enemy;
 
     void Awake () {
-        //animation = GetComponent<Animation>();
+        animation = GetComponent<Animation>();
         mytransform = gameObject.transform;
+        Debug.Log(transform.name);
+    }
+
+    void Start() {
+        team = (mytransform.position.x > 0)? 2: 1;
+        mytransform.localScale = (mytransform.position.x > 0) ?  new Vector3(-1,1,1) : new Vector3(1, 1, 1);
     }
 
     void Update () {
+        if (battle)
+            return;
+
         if (team == 1)
-            mytransform.position += speedVector;
+            mytransform.position += speedVector * Time.deltaTime;
         else if (team == 2)
-            mytransform.position -= speedVector;
+            mytransform.position -= speedVector * Time.deltaTime;
+    }
 
-
-        if (Physics.Raycast(mytransform.transform.position, mytransform.forward, out hit, 2, LayerMask.NameToLayer("Object"))) {
-            string enemyType = hit.transform.GetComponent<Pixel>().Type;
-            DestoryLoser(CheckLoser(Type, enemyType));
+    void OnTriggerEnter2D (Collider2D other) {
+        PixelMonster pixelMonster = other.gameObject.GetComponent<PixelMonster>();
+        if (pixelMonster != null) {
+            if (pixelMonster.team != this.team) {
+                //if (pixelMonster.battle == false) {
+                    pixelMonster.Battle(monsterType, this.gameObject);
+                    battle = true;
+                //}
+            }
         }
     }
 
-    public int CheckLoser (string choice1, string choice2) {
+    public void Battle(string attackerType, GameObject attacker) {
+        battle = true;
+        enemy = attacker;
+        StartCoroutine(BattleCheck(monsterType, attackerType));
+    }
+
+    IEnumerator BattleCheck (string choice1, string choice2) {
+        Debug.Log("BattleCheck");
+        yield return new WaitForSeconds(1f);
+
         if (choice1 == choice2) {
-            return 0;
+            DestoryLoser(0);
         } else if (choice1 == "rock") {
             if (choice2 == "water") {
-                return 1;
+                DestoryLoser(1);
             } else {
-                return 2;
+                DestoryLoser(2);
             }
         } else if (choice1 == "fire") {
             if (choice2 == "rock") {
-                return 1;
+                DestoryLoser(1);
             } else {
-                return 2;
+                DestoryLoser(2);
             }
         } else if (choice1 == "water") {
             if (choice2 == "fire") {
-                return 1;
+                DestoryLoser(1);
             } else {
-                return 2;
+                DestoryLoser(2);
             }
-        } else return 69;
+        }
     }
 
-    public void DestoryLoser (int loser) {
+    private void DestoryLoser (int loser) {
         if (loser == 0) {
             Destroy(gameObject, 0.1f);
-            Destroy(hit.transform.gameObject, 0.1f);
+            Destroy(enemy, 0.1f);
         } else if (loser == 1) {
-            Destroy(hit.transform.gameObject, 0.1f);
+            battle = false;
+            Destroy(enemy, 0.1f);
         } else if (loser == 1) {
+            enemy.GetComponent<PixelMonster>().battle = false;
             Destroy(gameObject, 0.1f);
         }
     }
