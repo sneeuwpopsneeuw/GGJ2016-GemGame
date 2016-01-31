@@ -19,11 +19,17 @@ public class Gem : MonoBehaviour
     public float minGemWidth = 231, maxGemWidth = 231;
     public int health = 100;
     public Sprite[] healthSprites;
+    public Transform[] arrowPosition;
+    private int arrowIndex = 3;
+    public GameObject deathScreen;
     public List<SpawnGem> spawnedGems = new List<SpawnGem>();
+    public GameObject arrowPrefab;
+    private GameObject arrowInstance;
     private float spawnTimer;
     private float minDistance = 2.3f;
     private int maxRows = 5;
     private float blockHeight = .8f;
+    public bool paused = false;
     RaycastHit2D[] hit = new RaycastHit2D[2];
     Random rand;
 
@@ -32,79 +38,95 @@ public class Gem : MonoBehaviour
         DOTween.Init();
         rand = new Random();
         smallGemParent.transform.position = transform.position;
-        //SpawnSmallGem();
-        //SpawnSmallGem();
-        //SpawnSmallGem();
-        //SpawnSmallGem();
         spawnTimer = spawnTime;
+        arrowInstance = Instantiate(arrowPrefab);
+        arrowInstance.transform.position = arrowPosition[arrowIndex].position;
     }
 
     void Update()
     {
-        spawnTimer += Time.deltaTime;
-        if (spawnTimer > spawnTime)
+        if (!paused)
         {
-            spawnTimer = 0;
-            //SpawnCockblocker();
-            SpawnSmallGem();
-        }
-
-        if (Input.GetButtonDown(leftKey + "_" + playerId.ToString()))
-        {
-            RotateGem(angle);
-        }
-
-        if (Input.GetButtonDown(rightKey + "_" + playerId.ToString()))
-        {
-            RotateGem(-angle);
-        }
-
-        for (int i = 0; i < spawnedGems.Count; i++)
-        {
-            SpawnGem sg = spawnedGems[i];
-            CheckCombo(sg);
-            sg.col.enabled = false;
-            int count = Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.up, hit, .4f);
-            sg.col.enabled = true;
-            if (count > 1)
+            spawnTimer += Time.deltaTime;
+            if (spawnTimer > spawnTime)
             {
-                sg.moving = false;
-                bool succes = false;
-                RaycastHit2D[] hits = new RaycastHit2D[20];
-                count = Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.up, hits, minDistance + (blockHeight * (maxRows)));
-                for (int x = 0; x < count; x++)
+                spawnTimer = 0;
+                //SpawnCockblocker();
+                SpawnSmallGem();
+            }
+
+            if (Input.GetButtonDown(leftKey + "_" + playerId.ToString()))
+            {
+                RotateGem(angle);
+            }
+
+            if (Input.GetButtonDown(rightKey + "_" + playerId.ToString()))
+            {
+                RotateGem(-angle);
+            }
+
+            if (Input.GetButtonDown(upKey + "_" + playerId.ToString()))
+            {
+                MoveArrow(++arrowIndex);
+            }
+
+            if (Input.GetButtonDown(downKey + "_" + playerId.ToString()))
+            {
+                MoveArrow(--arrowIndex);
+            }
+
+            for (int i = 0; i < spawnedGems.Count; i++)
+            {
+                SpawnGem sg = spawnedGems[i];
+                CheckCombo(sg);
+                sg.col.enabled = false;
+                int count = Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.up, hit, .4f);
+                sg.col.enabled = true;
+                if (count > 1)
                 {
-                    if(hits[x].collider.gameObject == gameObject)
+                    sg.moving = false;
+                    bool succes = false;
+                    RaycastHit2D[] hits = new RaycastHit2D[20];
+                    count = Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.up, hits, minDistance + (blockHeight * (maxRows)));
+                    for (int x = 0; x < count; x++)
                     {
-                        succes = true;
-                        break;
+                        if (hits[x].collider.gameObject == gameObject)
+                        {
+                            succes = true;
+                            break;
+                        }
                     }
-                }
-                if(succes)
-                {
-                    continue;
+                    if (succes)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        spawnedGems.Remove(sg);
+                        Destroy(sg.prefab);
+                        TakeDamage(20);
+                        continue;
+                    }
                 }
                 else
                 {
-                    spawnedGems.Remove(sg);
-                    Destroy(sg.prefab);
-                    TakeDamage(20);
-                    continue;
+                    sg.prefab.transform.position += -sg.prefab.transform.up * Time.deltaTime;
+                    sg.moving = true;
                 }
+                Vector2 v = sg.sprite.dimensions;
+                v.x = Mathf.Lerp(minGemWidth, maxGemWidth, (Vector3.Distance(transform.position, sg.prefab.transform.position) - minDistance) / ((minDistance + blockHeight * (maxRows - 1)) - minDistance));
+                sg.sprite.dimensions = v;
+                Vector2 v2 = sg.col.size;
+                v2.x = v.x / 100f;
+                sg.col.size = v2;
             }
-            else
-            {
-                sg.prefab.transform.position += -sg.prefab.transform.up * Time.deltaTime;
-                sg.moving = true;
-            }
-            Vector2 v = sg.sprite.dimensions;
-            v.x = Mathf.Lerp(minGemWidth, maxGemWidth, (Vector3.Distance(transform.position, sg.prefab.transform.position) - minDistance) / ((minDistance + blockHeight * (maxRows - 1)) - minDistance));
-            sg.sprite.dimensions = v;
-            Vector2 v2 = sg.col.size;
-            v2.x = v.x / 100f;
-            sg.col.size = v2;
+            hit = new RaycastHit2D[2];
         }
-        hit = new RaycastHit2D[2];
+    }
+
+    public void MoveArrow( int i)
+    {
+        arrowInstance.transform.DOMove(arrowPosition[i].position, .2f);
     }
 
     public void RotateGem(float angle)
@@ -187,7 +209,7 @@ public class Gem : MonoBehaviour
         parent.transform.SetParent(smallGemParent, false);
         GameObject GO = Instantiate(gems[gemRand].prefab);
         GO.transform.SetParent(parent.transform, false);
-        GO.transform.localPosition = new Vector3(0, minDistance + blockHeight * (maxRows * 2));
+        GO.transform.localPosition = new Vector3(0, minDistance + blockHeight * (maxRows * 2.4f));
         //GO.transform.localPosition = new Vector3(Mathf.Cos((angleRand * angle) * Mathf.Deg2Rad), Mathf.Sin((angleRand * angle) * Mathf.Deg2Rad)) * (minDistance + blockHeight * (maxRows - 1));
         parent.transform.rotation = Quaternion.AngleAxis(angleRand * angle - 90, new Vector3(0, 0, 1));
         tk2dSlicedSprite sp = GO.GetComponent<tk2dSlicedSprite>();
@@ -218,7 +240,8 @@ public class Gem : MonoBehaviour
 
     public void Lose()
     {
-
+        deathScreen.SetActive(true);
+        paused = true;
     }
 
     public void SpawnCockblocker()
@@ -228,7 +251,7 @@ public class Gem : MonoBehaviour
         parent.transform.SetParent(smallGemParent, false);
         GameObject GO = Instantiate(cockBlockerPrefab);
         GO.transform.SetParent(parent.transform, false);
-        GO.transform.localPosition = new Vector3(0, minDistance + blockHeight * (maxRows * 2));
+        GO.transform.localPosition = new Vector3(0, minDistance + blockHeight * (maxRows * 2.4f));
         //GO.transform.localPosition = new Vector3(Mathf.Cos((angleRand * angle) * Mathf.Deg2Rad), Mathf.Sin((angleRand * angle) * Mathf.Deg2Rad)) * (minDistance + blockHeight * (maxRows - 1));
         parent.transform.rotation = Quaternion.AngleAxis(angleRand * angle - 90, new Vector3(0, 0, 1));
         tk2dSlicedSprite sp = GO.GetComponent<tk2dSlicedSprite>();
