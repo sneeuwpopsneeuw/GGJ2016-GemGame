@@ -38,18 +38,20 @@ public class PixelMonster : MonoBehaviour {
     }
 
     void OnTriggerEnter2D (Collider2D other) {
-        animator.SetTrigger("Attack");
-        transform.GetChild(0).gameObject.SetActive(true);
         PixelMonster pixelMonster = other.gameObject.GetComponent<PixelMonster>();
         if (pixelMonster != null) {
-            if (pixelMonster.team != this.team) {
+            if (pixelMonster.team != this.team)
+            {
                 pixelMonster.Battle(monsterType, this.gameObject);
                 battle = true;
             }
         }
     }
 
-    public void Battle(string attackerType, GameObject attacker) {
+    public void Battle(string attackerType, GameObject attacker)
+    {
+        animator.SetTrigger("Attack");
+        transform.GetChild(0).gameObject.SetActive(true);
         battle = true;
         enemy = attacker;
         StartCoroutine(BattleCheck(monsterType, attackerType));
@@ -80,6 +82,7 @@ public class PixelMonster : MonoBehaviour {
                 DestoryLoser(2);
             }
         }
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
     private void DestoryLoser (int loser) {

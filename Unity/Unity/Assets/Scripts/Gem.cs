@@ -214,6 +214,7 @@ public class Gem : MonoBehaviour
 
     public void SpawnMinion(GemType type)
     {
+        Debug.Log((int)type);
         pwm.Spawn((int)playerId, arrowIndex, (int)type);
     }
 
@@ -303,7 +304,7 @@ public class SpawnGem
 
 public enum GemType
 {
-    Red, Green, Blue, Cockblocker
+    Green = 0 , Red = 1, Blue = 2, Cockblocker
 }
 
 public enum PlayerId
