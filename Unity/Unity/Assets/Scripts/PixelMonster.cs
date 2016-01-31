@@ -7,14 +7,14 @@ public class PixelMonster : MonoBehaviour {
     public string monsterType; // "rock" "paper" "scissors" "cockblocker"
     private Vector3 speedVector = new Vector3(1,0,0);
 
-    private Animation animation;
+    private Animator animator;
     private Transform mytransform;
     private bool battle = false;
     private GameObject enemy;
     public bool paused;
 
     void Awake () {
-        animation = GetComponent<Animation>();
+        animator = GetComponent<Animator>();
         mytransform = gameObject.transform;
     }
 
@@ -38,13 +38,13 @@ public class PixelMonster : MonoBehaviour {
     }
 
     void OnTriggerEnter2D (Collider2D other) {
+        animator.SetTrigger("Attack");
+        transform.GetChild(0).gameObject.SetActive(true);
         PixelMonster pixelMonster = other.gameObject.GetComponent<PixelMonster>();
         if (pixelMonster != null) {
             if (pixelMonster.team != this.team) {
-                //if (pixelMonster.battle == false) {
-                    pixelMonster.Battle(monsterType, this.gameObject);
-                    battle = true;
-                //}
+                pixelMonster.Battle(monsterType, this.gameObject);
+                battle = true;
             }
         }
     }
