@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: 245aab9288b5e59488b56ce5e3f41a25
-timeCreated: 1454233791
+guid: b855c51a28fe63b489400b867c78324f
+timeCreated: 1454233709
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: play_again_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,7 +31,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -38,7 +39,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -49,7 +50,37 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: play_again_0
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 69
+        width: 859
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 429.5, y: 106.5}
+        - {x: -423.5, y: 106.5}
+        - {x: -424.5, y: 103.5}
+        - {x: -424.5, y: 85.5}
+        - {x: -425.5, y: 84.5}
+        - {x: -425.5, y: -25.5}
+        - {x: -426.5, y: -26.5}
+        - {x: -426.5, y: -46.5}
+        - {x: -425.5, y: -47.5}
+        - {x: -426.5, y: -49.5}
+        - {x: -426.5, y: -56.5}
+        - {x: -425.5, y: -57.5}
+        - {x: -425.5, y: -76.5}
+        - {x: -424.5, y: -77.5}
+        - {x: -424.5, y: -101.5}
+        - {x: -425.5, y: -102.5}
+        - {x: -429.5, y: -103.5}
+        - {x: -429.5, y: -106.5}
+        - {x: 429.5, y: -106.5}
     outline: []
   spritePackingTag: 
   userData: 
