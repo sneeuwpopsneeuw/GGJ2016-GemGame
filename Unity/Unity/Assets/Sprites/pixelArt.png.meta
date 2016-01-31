@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 86606f3b7431a504483dfc3edfb6d2b1
-timeCreated: 1454234623
+timeCreated: 1454234865
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -31,6 +31,7 @@ TextureImporter:
     21300048: fire_6
     21300050: fire_7
     21300052: fire_8
+    21300054: pixelArt_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -370,6 +371,17 @@ TextureImporter:
         y: 16
         width: 16
         height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: pixelArt_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 14
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -15,7 +15,6 @@ public class PixelMonster : MonoBehaviour {
     void Awake () {
         animation = GetComponent<Animation>();
         mytransform = gameObject.transform;
-        Debug.Log(transform.name);
     }
 
     void Start() {
