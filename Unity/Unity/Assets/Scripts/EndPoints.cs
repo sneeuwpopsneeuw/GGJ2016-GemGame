@@ -2,6 +2,7 @@
 
 public class EndPoints : MonoBehaviour {
 
+    public Gem gem;
     [Range(1,2)]
     public int team;
 
@@ -10,7 +11,7 @@ public class EndPoints : MonoBehaviour {
         if (pixelMonster != null) {
             if (pixelMonster.team != this.team) {
                 Destroy(other.gameObject);
-                Debug.Log("-10 points for gryffindor");
+                gem.SpawnCockblocker();
             }
         }
     }
