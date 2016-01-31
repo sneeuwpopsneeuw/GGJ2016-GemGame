@@ -15,7 +15,7 @@ public class PixelMonster : MonoBehaviour {
     void Awake () {
         animation = GetComponent<Animation>();
         mytransform = gameObject.transform;
-        Debug.Log(transform.name);
+        //Debug.Log(transform.name);
     }
 
     void Start() {
@@ -52,7 +52,7 @@ public class PixelMonster : MonoBehaviour {
     }
 
     IEnumerator BattleCheck (string choice1, string choice2) {
-        Debug.Log("BattleCheck");
+        //Debug.Log("BattleCheck");
         yield return new WaitForSeconds(1f);
 
         if (choice1 == choice2) {
