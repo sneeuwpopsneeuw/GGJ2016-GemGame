@@ -12,6 +12,8 @@ public class PixelMonster : MonoBehaviour {
     private bool battle = false;
     private GameObject enemy;
     public bool paused;
+    public AudioClip clip;
+    public AudioSource source;
 
     void Awake () {
         animator = GetComponent<Animator>();
@@ -50,6 +52,8 @@ public class PixelMonster : MonoBehaviour {
 
     public void Battle(string attackerType, GameObject attacker)
     {
+        source.pitch = Random.Range(0.9f, 1.1f);
+        source.PlayOneShot(clip);
         animator.SetTrigger("Attack");
         transform.GetChild(0).gameObject.SetActive(true);
         battle = true;

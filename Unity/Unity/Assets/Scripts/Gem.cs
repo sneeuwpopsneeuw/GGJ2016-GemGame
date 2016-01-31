@@ -33,6 +33,12 @@ public class Gem : MonoBehaviour
     public bool paused = false;
     public bool rotating;
     public PixelWarManager pwm;
+    public float speedMultiplier = .02f;
+    public float spawnTimeMultiplier = 1f;
+    public AudioSource swoosh;
+    public AudioSource pling;
+    public AudioClip plingClip;
+    public AudioClip swooshClip;
     RaycastHit2D[] hit = new RaycastHit2D[2];
     Random rand;
 
@@ -50,6 +56,8 @@ public class Gem : MonoBehaviour
     {
         if (!paused)
         {
+            speed += Time.deltaTime * speedMultiplier;
+            spawnTime = Mathf.Lerp(2, 1, Time.deltaTime * spawnTimeMultiplier);
             spawnTimer += Time.deltaTime;
             if (spawnTimer > spawnTime)
             {
@@ -146,6 +154,8 @@ public class Gem : MonoBehaviour
     {
         if (!rotating)
         {
+            swoosh.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+            swoosh.PlayOneShot(swooshClip);
             //transform.Rotate(0, 0, angle);
             rotating = true;
             for (int i = 0; i < spawnedGems.Count; i++)
@@ -188,7 +198,7 @@ public class Gem : MonoBehaviour
                         {
 
                             SpawnGem foundGem = spawnedGems.First(s => s.prefab == hits[x].collider.gameObject);
-                            if (!foundGem.moving)
+                            if (!foundGem.moving && !gem.moving)
                             {
                                 if (!gems.Contains(foundGem))
                                 {
@@ -208,6 +218,8 @@ public class Gem : MonoBehaviour
                     Destroy(gems[i].prefab.transform.parent.gameObject);
                 }
                 SpawnMinion(gems[0].type);
+                pling.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+                pling.PlayOneShot(plingClip);
             }
         }
     }
