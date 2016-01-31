@@ -41,6 +41,7 @@ public class Gem : MonoBehaviour
         spawnTimer = spawnTime;
         arrowInstance = Instantiate(arrowPrefab);
         arrowInstance.transform.position = arrowPosition[arrowIndex].position;
+        TakeDamage(25);
     }
 
     void Update()
@@ -104,7 +105,7 @@ public class Gem : MonoBehaviour
                     {
                         spawnedGems.Remove(sg);
                         Destroy(sg.prefab);
-                        TakeDamage(20);
+                        TakeDamage(25);
                         continue;
                     }
                 }
@@ -230,12 +231,13 @@ public class Gem : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        int i = Mathf.RoundToInt(health / (100 / healthSprites.Length));
-        GetComponent<SpriteRenderer>().sprite = healthSprites[i];
-        if (health < 0)
+        if (health <= 0)
         {
             Lose();
+            return;
         }
+        int i = Mathf.RoundToInt(health / (100 / healthSprites.Length));
+        GetComponent<SpriteRenderer>().sprite = healthSprites[i];
     }
 
     public void Lose()
