@@ -45,7 +45,7 @@ public class Gem : MonoBehaviour
     void Start()
     {
         DOTween.Init();
-        rand = new Random(System.DateTime.Now.Millisecond * UnityEngine.Random.Range(0,100));
+        rand = new Random(System.DateTime.Now.Millisecond * UnityEngine.Random.Range(0, 100));
         smallGemParent.transform.position = transform.position;
         spawnTimer = spawnTime;
         arrowInstance = Instantiate(arrowPrefab);
@@ -57,7 +57,7 @@ public class Gem : MonoBehaviour
         if (!paused)
         {
             speed += Time.deltaTime * speedMultiplier;
-            spawnTime = Mathf.Lerp(2, 1, Time.deltaTime * spawnTimeMultiplier);
+            //spawnTime = Mathf.Lerp(2, 1, Time.deltaTime * spawnTimeMultiplier);
             spawnTimer += Time.deltaTime;
             if (spawnTimer > spawnTime)
             {
@@ -92,7 +92,7 @@ public class Gem : MonoBehaviour
             {
                 SpawnGem sg = spawnedGems[i];
                 CheckCombo(sg);
-                sg.col.enabled = false;
+                //sg.col.enabled = false;
                 int count = Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.up, hit, .4f);
                 if (count > 1)
                 {
@@ -103,7 +103,7 @@ public class Gem : MonoBehaviour
                     List<GameObject> hitObj = new List<GameObject>();
                     for (int x = 0; x < count; x++)
                     {
-                        if(!hitObj.Contains(hits[x].transform.gameObject))
+                        if (!hitObj.Contains(hits[x].transform.gameObject))
                         {
                             hitObj.Add(hits[x].transform.gameObject);
                         }
@@ -119,7 +119,7 @@ public class Gem : MonoBehaviour
                     }
                     else
                     {
-                        if (hitObj.Count> 5)
+                        if (hitObj.Count > 5)
                         {
                             spawnedGems.Remove(sg);
                             Destroy(sg.prefab.transform.parent.gameObject);
@@ -133,12 +133,12 @@ public class Gem : MonoBehaviour
                     sg.prefab.transform.position += -sg.prefab.transform.up * Time.deltaTime * speed;
                     sg.moving = true;
                 }
-                sg.col.enabled = true;
+                //sg.col.enabled = true;
                 Vector2 v = sg.sprite.dimensions;
                 v.x = Mathf.Lerp(minGemWidth, maxGemWidth, (Vector3.Distance(transform.position, sg.prefab.transform.position) - minDistance) / ((minDistance + blockHeight * (maxRows - 1)) - minDistance));
                 sg.sprite.dimensions = v;
                 Vector2 v2 = sg.col.size;
-                v2.x = v.x / 100f;
+                v2.x = v.x / 100f - 1f;
                 sg.col.size = v2;
             }
             hit = new RaycastHit2D[2];
@@ -156,40 +156,88 @@ public class Gem : MonoBehaviour
         {
             swoosh.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
             swoosh.PlayOneShot(swooshClip);
-            //transform.Rotate(0, 0, angle);
             rotating = true;
             for (int i = 0; i < spawnedGems.Count; i++)
             {
                 SpawnGem sg = spawnedGems[i];
-                sg.col.enabled = false;
+                //sg.col.enabled = false;
                 int count = Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.up, hit, .45f);
-                count += Physics2D.RaycastNonAlloc(sg.prefab.transform.position, sg.prefab.transform.right, hit, 2.6f);
-                count += Physics2D.RaycastNonAlloc(sg.prefab.transform.position, -sg.prefab.transform.right, hit, 2.6f);
-                if (count > 3)
+                //count += Physics2D.RaycastNonAlloc(sg.prefab.transform.position + sg.prefab.transform.up * .4f, sg.prefab.transform.right, hit, 3f);
+                //count += Physics2D.RaycastNonAlloc(sg.prefab.transform.position + sg.prefab.transform.up * .4f, -sg.prefab.transform.right, hit, 3f);
+                //count += Physics2D.RaycastNonAlloc(sg.prefab.transform.position - sg.prefab.transform.up * .4f, sg.prefab.transform.right, hit, 3f);
+                //count += Physics2D.RaycastNonAlloc(sg.prefab.transform.position - sg.prefab.transform.up * .4f, -sg.prefab.transform.right, hit, 3f);
+
+                //Vector3 min = sg.prefab.transform.position - new Vector3(sg.sprite.dimensions.x / 2f / 100f, sg.sprite.dimensions.y / 2f / 100f)
+                Vector3 min = sg.prefab.transform.position - (sg.prefab.transform.up * ((sg.sprite.dimensions.y - 30) / 2f / 100f)) - (sg.prefab.transform.right * (sg.sprite.dimensions.x - 60) / 2f / 100f);
+                Vector3 max = sg.prefab.transform.position + (sg.prefab.transform.up * ((sg.sprite.dimensions.y - 30) / 2f / 100f)) + (sg.prefab.transform.right * (sg.sprite.dimensions.x - 60) / 2f / 100f);
+                Debug.DrawLine(min, max);
+                Vector3 maxRight = RotatePointAroundPivot(max, transform.position, new Vector3(0, 0, angle));
+                Vector3 minRight = RotatePointAroundPivot(min, transform.position, new Vector3(0, 0, angle));
+                Vector3 maxLeft = RotatePointAroundPivot(max, transform.position, new Vector3(0, 0, -angle));
+                Vector3 minLeft = RotatePointAroundPivot(min, transform.position, new Vector3(0, 0, -angle));
+
+                Debug.DrawLine(minRight, maxRight);
+                Debug.DrawLine(minLeft, maxLeft);
+                //Debug.Break();
+                var succ = true;
+                Collider2D[] col = Physics2D.OverlapAreaAll(minRight, maxRight);
+                for (int x = 0; x < col.Length; x++)
+                {
+                    if(col[x] != sg.col && col[x] != null)
+                    {
+                        succ = false;
+                    }
+                }
+
+                col = Physics2D.OverlapAreaAll(minLeft, maxLeft);
+                for (int x = 0; x < col.Length; x++)
+                {
+                    if (col[x] != sg.col && col[x] != null)
+                    {
+                        succ = false;
+                    }
+                }
+
+                if (count > 1 || !succ)
                 {
                     sg.targetAngle += angle;
                     sg.prefab.transform.parent.DOLocalRotate(new Vector3(0, 0, angle), .2f, RotateMode.LocalAxisAdd);
                 }
-                sg.col.enabled = true;
             }
             targetAngle += angle;
             transform.DOLocalRotate(new Vector3(0, 0, angle), .2f, RotateMode.LocalAxisAdd).OnComplete(() => rotating = false);
         }
     }
 
+    public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
+    {
+        var dir = point - pivot; // get point direction relative to pivot
+        dir = Quaternion.Euler(angles) * dir; // rotate it
+        point = dir + pivot; // calculate rotated point
+        return point; // return it
+    }
+
+
+
     public void CheckCombo(SpawnGem gem)
     {
         if (gem.type != GemType.Cockblocker)
         {
-            gem.col.enabled = false;
+            gem.col.enabled = true;
             RaycastHit2D[] hits = new RaycastHit2D[5];
             List<SpawnGem> gems = new List<SpawnGem>();
             gems.Add(gem);
             Vector2[] directions = new Vector2[] { gem.prefab.transform.up, -gem.prefab.transform.up, gem.prefab.transform.right, -gem.prefab.transform.right };
-            float[] distances = new float[] { .45f, .45f, 3f, 3f };
+            float width = Mathf.Lerp(1.3f, 3, (Vector3.Distance(transform.position, gem.prefab.transform.position) - minDistance) / ((minDistance + blockHeight * (maxRows - 1)) - minDistance));
+
+            float[] distances = new float[] { .45f, .45f, width, width };
             for (int i = 0; i < directions.Length; i++)
             {
                 int count = Physics2D.RaycastNonAlloc(gem.prefab.transform.position, directions[i], hits, distances[i]);
+                //if (i == 2 || i == 3)
+                //{
+                //    Debug.DrawRay(gem.prefab.transform.position, directions[i] * distances[i]);
+                //}
                 for (int x = 0; x < count; x++)
                 {
                     if (hits[x].collider.gameObject != gem.prefab)
@@ -258,7 +306,6 @@ public class Gem : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Test");
         health -= damage;
         if (health <= 0)
         {
@@ -316,7 +363,7 @@ public class SpawnGem
 
 public enum GemType
 {
-    Green = 0 , Red = 1, Blue = 2, Cockblocker
+    Green = 0, Red = 1, Blue = 2, Cockblocker
 }
 
 public enum PlayerId

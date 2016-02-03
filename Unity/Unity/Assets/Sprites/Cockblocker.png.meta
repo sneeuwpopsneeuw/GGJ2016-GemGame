@@ -1,9 +1,10 @@
 fileFormatVersion: 2
 guid: 61325227f3e88e04f8ca5046263fd5dd
-timeCreated: 1454180076
+timeCreated: 1454503163
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Cockblocker_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -49,7 +50,27 @@ TextureImporter:
   textureType: 5
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Cockblocker_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 0
+        width: 231
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 104.5, y: 48}
+        - {x: -64.5, y: 48}
+        - {x: -115.5, y: 45}
+        - {x: -115.5, y: 19}
+        - {x: -87.5, y: -48}
+        - {x: 87.5, y: -48}
+        - {x: 93.5, y: -40}
+        - {x: 115.5, y: 30}
+        - {x: 115.5, y: 47}
     outline: []
   spritePackingTag: 
   userData: 
